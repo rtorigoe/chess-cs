@@ -14,12 +14,12 @@
 **/
     public class piece
     {
-        protected const int BOARD_WIDTH = 8;
-        protected const int BOARD_LENGTH = 8;
-        protected const int POINT_VAL = 1;
-        protected const bool COLOR; // true for white, false for black
+        protected int BOARD_WIDTH = 8;
+        protected int BOARD_HEIGHT = 8;
+        protected int POINT_VAL = 1;
+        protected boolean COLOR; // true for white, false for black
         protected int X_COORD;
-        protected int Y_COORD:
+        protected int Y_COORD;
 
         /**
      * @brief ctor
@@ -30,7 +30,7 @@
      * @return public piece object
      */
 
-    public piece(int x, int y, bool color)
+    public piece(int x, int y, boolean color)
     {
         if ((x < 0) || (x > BOARD_WIDTH))
         {
@@ -54,15 +54,15 @@
      *     - object's x and y values will change to the parameter values  
     **/
 
-    protected bool makeMove(int x, int y) {
+    protected boolean makeMove(int x, int y) {
         if ((x < 0) || (x > BOARD_WIDTH)) {
             throw new ArgumentOutOfRangeException("coordinate out of bounds");
         }
         if ((y < 0) || (y > BOARD_HEIGHT)) {
             throw new ArgumentOutOfRangeException("coordinate out of bounds");
         }
-        this.x = x;
-        this.y = y;
+        this.X_COORD = x;
+        this.Y_COORD = y;
         return true;
     }
 }
