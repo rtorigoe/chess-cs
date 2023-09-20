@@ -32,17 +32,22 @@
 
     public piece(int x, int y, boolean color)
     {
-        if ((x < 0) || (x > BOARD_WIDTH))
-        {
-            throw new ArgumentOutOfRangeException("coordinate out of bounds");
+        try {
+            if ((x < 0) || (x > BOARD_WIDTH))
+            {
+                throw new Exception("coordinate out of bounds");
+            }
+            if ((y < 0) || (y > BOARD_HEIGHT)) 
+            {
+                throw new Exception("coordinate out of bounds");
+            }
+            this.X_COORD = x;
+            this.Y_COORD = y;
+            this.COLOR = color;
         }
-        if ((y < 0) || (y > BOARD_HEIGHT)) 
-        {
-            throw new ArgumentOutOfRangeException("coordinate out of bounds");
+        catch (Exception e) {
+            e.getMessage();
         }
-        this.X_COORD = x;
-        this.Y_COORD = y;
-        this.COLOR = color;
     }
 
     /**
@@ -54,16 +59,22 @@
      *     - object's x and y values will change to the parameter values  
     **/
 
-    protected boolean makeMove(int x, int y) {
-        if ((x < 0) || (x > BOARD_WIDTH)) {
-            throw new ArgumentOutOfRangeException("coordinate out of bounds");
+    protected boolean move(int x, int y) {
+        try {
+            if ((x < 0) || (x > BOARD_WIDTH)) {
+                throw new Exception("coordinate out of bounds");
+            }
+            if ((y < 0) || (y > BOARD_HEIGHT)) {
+                throw new Exception("coordinate out of bounds");
+            }
+            this.X_COORD = x;
+            this.Y_COORD = y;
+            return true;
         }
-        if ((y < 0) || (y > BOARD_HEIGHT)) {
-            throw new ArgumentOutOfRangeException("coordinate out of bounds");
+        catch (Exception e) {
+            e.getMessage();
         }
-        this.X_COORD = x;
-        this.Y_COORD = y;
-        return true;
+        return false;
     }
 }
 
@@ -75,8 +86,8 @@
  *     - COLOR is stored as a boolean to represent two possibilities of color (black or white)
  *  
  * Methods:
- *     - makeMove:
- *     - ArgumentOutOfRange exception thrown when the given coordinate is off the board
- *     - Checks the coordinates to see if they're valid coordinates, but invalid to move to
- *     - true is returned upon a correct call to the method, false returned otherwise
+ *     - makeMove():
+ *         - Exception thrown when the given coordinate is off the board
+ *         - Checks the coordinates to see if they're valid coordinates, but invalid to move to
+ *         - true is returned upon a correct call to the method, false returned otherwise
 **/

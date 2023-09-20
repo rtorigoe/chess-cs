@@ -12,42 +12,68 @@
  * 
  */
 
-using System;
+import java.lang.Math;
 
-namespace chess
+public class pawn extends piece
 {
-    class pawn : piece
-    {
-        private bool promotable;
-        private bool unmoved;
+    private boolean PROMOTABLE;
+    private boolean UNMOVED;
 
-        /**
-         * @brief ctor
-         * 
-         * @param x - int, valid values of 0-7
-         * @param y - int, valid values of 0-7
-         * @param color - bool, valid values of true or false
-         * @return public pawn obj
-         */
+    /**
+     * @brief ctor
+     * 
+     * @param x - int, valid values of 0-7
+     * @param y - int, valid values of 0-7
+     * @param color - bool, valid values of true or false
+     * @return public pawn obj
+     */
 
-        public pawn(int x, int y, bool color) : base(x, y, color)
-        {
-            this.promotable = false;
-            this.unmoved = true;
-        }
+    public pawn(int x, int y, boolean color) {
+        super(x, y, color);
+        this.PROMOTABLE = false;
+        this.UNMOVED = true;
+    }
 
-        virtual public bool move(int x, int y)
-        {
-            if ((X_COORD - x != 0) || Math.Abs(Y_COORD - y) > 2)
-            {
-                throw new ArgumentOutOfRangeException("coordinate out of bounds");
+    /**
+     * Pre-Conditions:
+     *     - x is within the valid range of values (0 - BOARD_WIDTH - 1)
+     *     - y is within the valid range of values (0 - BOARD_LENGTH - 1)
+     * 
+     * Post-Conditions:
+     *     - object's x and y values will change to the desired values
+     */
+
+    @Override public boolean move(int x, int y) {
+        try {
+            if ((X_COORD - x != 0) || Math.abs(Y_COORD - y) > 2) {
+                throw new Exception("invalid coordinate to move to");
             }
-            if (Math.Abs(Y_COORD - y == 2) && (unmoved == false))
-            {
-                throw new ArgumentOutOfRangeException("pawn cannot move 2 spaces, has moved already");
+            if (Math.abs(Y_COORD - y) == 2 && (UNMOVED == false)) {
+                throw new Exception("pawn cannot move 2 spaces, has moved already");
             }
-
             Y_COORD = y;
+            UNMOVED = false;
+            return true;
         }
+        catch (Exception e) {
+            e.getMessage();
+        }
+        return false;
     }
 }
+
+/**
+ * IMPLEMENTATION INVARIANT
+ * 
+ * Members:
+ *     - PROMOTABLE and UNMOVED are stored as booleans to represent dicotomy (either true or false)
+ * 
+ * Constructor:
+ *     - Sets PROMOTABLE to false by default
+ *     - Sets UNMOVED to true by default
+ * 
+ * Methods:
+ *     - move():
+ *         - Exceptions thrown if the pawn cannot move to the desired space
+ *         - Otherwise sets the y coordinate to the desired location and sets UNMOVED to false
+ */
